@@ -56,7 +56,7 @@ function PChart(props) {
   ];
 
   return (
-    <Jumbotron>
+    <Jumbotron style={{ zIndex: "-1" }}>
       <Row>
         <Col xs="12" md="5">
           <PieChart width={1400} height={500}>
