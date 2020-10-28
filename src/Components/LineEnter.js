@@ -16,7 +16,7 @@ import { useImmerReducer } from "use-immer";
 
 import TheContext from "./../TheContext";
 
-const BarInput = ({ submit }) => {
+const LineInput = ({ submit }) => {
   const [Color, setColor] = useState("Colors");
 
   const changeColor = (val) => {
@@ -254,4 +254,4 @@ const BarInput = ({ submit }) => {
   );
 };
 
-export default BarInput;
+export default LineInput;

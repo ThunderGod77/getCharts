@@ -49,8 +49,8 @@ const BarInput = ({ submit }) => {
       case "changeValue":
         state[action.index].pv = parseInt(action.value);
         break;
-      case "addNew":
-        state.push({ name: "", pv: 0 });
+      case "changeMax":
+        state[action.index].max = parseInt(action.value);
         break;
       case "delete":
         if (action.index === 0) {
@@ -66,8 +66,12 @@ const BarInput = ({ submit }) => {
     }
   }
   const [tableData, dispatchTableData] = useImmerReducer(updateTable, [
-    { name: "lol", pv: 356 },
-    { name: "lolop", pv: 600 },
+    { name: "English", pv: 356, max: 1000 },
+    { name: "Maths", pv: 600, max: 1000 },
+    { name: "Science", pv: 700, max: 1000 },
+    { name: "History", pv: 800, max: 1000 },
+    { name: "Geography", pv: 640, max: 1000 },
+    { name: "Philosophy", pv: 345, max: 1000 },
   ]);
   const check = () => {
     for (let a of tableData) {
@@ -100,18 +104,6 @@ const BarInput = ({ submit }) => {
             <th style={{ textAlign: "center" }}>#</th>
             <th>Name of the Object</th>
             <th>Value</th>
-            <th>
-              <Button
-                color="primary"
-                onClick={() => {
-                  dispatchTableData({
-                    type: "addNew",
-                  });
-                }}
-              >
-                Add New
-              </Button>
-            </th>
           </tr>{" "}
         </thead>
         <tbody>
@@ -149,27 +141,13 @@ const BarInput = ({ submit }) => {
                     }
                   />
                 </td>
-                <td>
-                  <Button
-                    key={index}
-                    color="primary"
-                    onClick={() => {
-                      dispatchTableData({
-                        type: "delete",
-                        index: index,
-                      });
-                    }}
-                  >
-                    Delete
-                  </Button>
-                </td>
               </tr>
             );
           })}
         </tbody>
       </Table>
       <Row style={{ marginBottom: "10px" }}>
-        <Col sm="4">
+        <Col sm="3">
           <Dropdown
             isOpen={dropdownOpen}
             toggle={toggle}
@@ -235,7 +213,7 @@ const BarInput = ({ submit }) => {
             </DropdownMenu>
           </Dropdown>
         </Col>
-        <Col sm="4">
+        <Col sm="3">
           <Input
             placeholder="Label for the Value"
             style={{ width: "100%" }}
@@ -244,7 +222,7 @@ const BarInput = ({ submit }) => {
           />
         </Col>
 
-        <Col sm="4">
+        <Col sm="3">
           <Button color="danger" onClick={check}>
             Save
           </Button>

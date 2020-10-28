@@ -6,7 +6,9 @@ import Navigation from "./Components/Navigation";
 
 import PieChart from "./Components/PieChart";
 import BarChart from "./Components/BarChart.js";
-
+import LineChart from "./Components/LineChart.js";
+import RadarChart from "./Components/RadarChart";
+import Home from "./Components/Home";
 import TheContext from "./TheContext";
 
 import "./App.css";
@@ -19,8 +21,25 @@ function App() {
     setShowMessage(true);
   };
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const login = () => {
+    setIsLoggedIn(true);
+  };
+  const logout = async () => {
+    localStorage.setItem("loggedIn", null);
+    localStorage.setItem("userName", null);
+    await setIsLoggedIn(false);
+  };
+
   return (
-    <TheContext.Provider value={{ showFlashMessage: showFlashMessage }}>
+    <TheContext.Provider
+      value={{
+        showFlashMessage: showFlashMessage,
+        isLoggedIn: isLoggedIn,
+        lin: login,
+        lout: logout,
+      }}
+    >
       <div className="App">
         <BrowserRouter>
           <Navigation />
@@ -54,16 +73,20 @@ function App() {
 
           <Switch>
             <Route path="/" exact>
-              <h1>Hello World</h1>
+              <Home />
             </Route>
-            <Route path="/addPodcast" exact>
-              <h1>LOL</h1>
-            </Route>
+
             <Route path="/PieChart" exact>
               <PieChart />
             </Route>
             <Route path="/BarChart" exact>
               <BarChart />
+            </Route>
+            <Route path="/LineChart" exact>
+              <LineChart />
+            </Route>
+            <Route path="/RadarChart" exact>
+              <RadarChart />
             </Route>
           </Switch>
         </BrowserRouter>
